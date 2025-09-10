@@ -57,6 +57,7 @@
     .status { font-weight: bold; }
     .status.Processando { color: orange; }
     .status.Enviado { color: green; }
+    #msg { text-align:center; margin-top:10px; font-weight:bold; }
   </style>
 </head>
 <body>
@@ -108,6 +109,8 @@
     <button class="btn-blue" onclick="enviarItem()">ENVIAR ITEM</button>
     <button class="btn-red" onclick="carregarHistorico()">ATUALIZAR HISTÓRICO</button>
 
+    <p id="msg"></p>
+
     <div class="historico">
       <h3>Histórico</h3>
       <div id="historico"></div>
@@ -117,7 +120,43 @@
 <script>
   const URL_GAS = "https://script.google.com/macros/s/AKfycbyXFEAq56G7oQdeCzGw_SdOnQ7XkRPMzBoS1V09Pkk_wI916FGO9nn4e9FfeNmv8KV9KA/exec";
 
+  // 🔑 Senhas de cada solicitante
+  const solicitanteSenhas = {
+    "ADM": "00", "Ruan": "Ruan10", "Renata": "Renata12","Flayane": "Flayane5","Eunice": "1097","Helena": "5556",
+    "Lu": "Lu26", "Bruna": "Bruna48", "Renan": "Renan78","Raimundo": "Raimundo47",
+    "Cleide": "Cleide98","Ricardo": "Ricardo41","Larissa": "Larissa56","Valcir": "Valcir24",
+    "Tailson": "Tailson97","Dheure": "Dheure73","Neval": "Neval34","Agnaldo": "Agnaldo67",
+    "Jenison": "Genison35","Dorilson": "Dorilson8","Joane": "joane6","Vania": "Vanial86",
+    "Adriana": "Adriana49","Ivaneide": "Ivaneide46","Geane": "Geane83","Luziânia": "Luziânia8",
+    "Rosemeire": "Rosemeire30","Wilma": "Wilma87","Gabriel": "Gabriel5","Islane": "Islane78",
+    "Marcelo": "Marcelo75","Juciara": "Juciara35","Aline Santos": "Aline32","Aline Rodrigues": "Aline59",
+    "Quiteria": "Quiteria43"
+  };
+
+  let senhaAutenticada = false;
+
+  // Valida senha ao selecionar solicitante
+  document.getElementById("solicitante").addEventListener("change", () => {
+    const s = document.getElementById("solicitante").value;
+    if (s) {
+      const senha = prompt(`Digite a senha de ${s}:`);
+      if (senha === solicitanteSenhas[s]) {
+        senhaAutenticada = true;
+        document.getElementById("msg").innerText = "✅ Autenticado!";
+      } else {
+        senhaAutenticada = false;
+        document.getElementById("msg").innerText = "❌ Senha incorreta!";
+        document.getElementById("solicitante").value = "";
+      }
+    }
+  });
+
   function enviarItem() {
+    if (!senhaAutenticada) {
+      alert("⚠️ Autentique-se primeiro!");
+      return;
+    }
+
     const dados = {
       acao: "cadastrar",
       solicitante: document.getElementById("solicitante").value,
