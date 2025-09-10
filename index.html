@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Painel de Requisições - DELÍCIA GOURMET</title>
+  <title>Requisições - DELÍCIA GOURMET</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
@@ -10,348 +10,171 @@
       --danger: #dc2626;
       --bg: #f3f4f6;
       --surface: #fff;
-      --text: #111827;
-      --muted: #6b7280;
       --radius: 10px;
       --shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin:0; padding:0; }
     body {
-      margin: 0;
       font-family: "Segoe UI", sans-serif;
       background: var(--bg);
-      color: var(--text);
+      padding: 20px;
       display: flex;
       justify-content: center;
-      padding: 20px;
     }
     .container {
       background: var(--surface);
+      padding: 20px;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      max-width: 600px;
+      max-width: 650px;
       width: 100%;
-      padding: 25px;
-      position: relative;
     }
     h2 {
       text-align: center;
       margin-bottom: 20px;
       color: var(--primary);
     }
-    label {
-      display: block;
-      margin: 12px 0 5px;
-      font-weight: 600;
-    }
+    label { font-weight: 600; margin-top: 10px; display: block; }
     input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #d1d5db;
-      border-radius: 6px;
-      font-size: 15px;
-      margin-bottom: 10px;
-      outline: none;
+      width: 100%; padding: 10px; margin-top: 5px;
+      border: 1px solid #ccc; border-radius: var(--radius);
     }
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 2px rgba(37,99,235,0.2);
-    }
-    .unidades {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 10px 0;
-    }
-    .unidades button {
-      flex: 1 1 30%;
-      padding: 8px;
-      font-size: 14px;
-      border: 1px solid var(--primary);
-      background: #fff;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .unidades button:hover { background: rgba(37,99,235,0.1); }
-    .unidades button.ativo { background: var(--primary); color: #fff; }
-    textarea { resize: vertical; min-height: 60px; }
-
     button {
-      width: 100%;
-      padding: 12px;
-      margin: 6px 0;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 16px;
-      transition: all 0.2s;
+      margin-top: 15px; padding: 12px; border: none;
+      border-radius: var(--radius); font-weight: bold;
+      cursor: pointer; font-size: 15px; width: 100%;
     }
     .btn-blue { background: var(--primary); color: #fff; }
     .btn-blue:hover { background: #1e40af; }
     .btn-red { background: var(--danger); color: #fff; }
     .btn-red:hover { background: #991b1b; }
-
-    #msg { text-align: center; margin-top: 10px; font-weight: bold; }
-
-    #spinner {
-      display: none;
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      border: 6px solid #e5e7eb;
-      border-top: 6px solid var(--primary);
-      border-radius: 50%;
-      width: 60px; height: 60px;
-      animation: spin 1s linear infinite;
-      z-index: 100;
-    }
-    @keyframes spin {
-      0% { transform: translate(-50%, -50%) rotate(0deg); }
-      100% { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-
-    /* Histórico em cards */
-    #historico {
-      display: grid;
-      gap: 10px;
-      margin-top: 15px;
-    }
-    .card-item {
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: var(--radius);
-      padding: 10px;
-      box-shadow: var(--shadow);
+    .historico { margin-top: 25px; }
+    .card {
+      background: #f9fafb; padding: 12px; margin-bottom: 10px;
+      border-radius: var(--radius); box-shadow: var(--shadow);
       font-size: 14px;
     }
-    .card-item strong { color: var(--primary); }
     .status { font-weight: bold; }
-    .status.enviado { color: green; }
-    .status.processando { color: orange; }
+    .status.Processando { color: orange; }
+    .status.Enviado { color: green; }
   </style>
 </head>
 <body>
-<div class="container">
-  <h2>📋 Requisição de Compras</h2>
+  <div class="container">
+    <h2>📋 Requisições DELÍCIA GOURMET</h2>
 
-  <label>Solicitante:</label>
-  <select id="solicitante">
-    <option value="">Selecione</option>
-    <option>ADM</option>
-    <option>Ruan</option>
-    <option>Renata</option>
-    <option>Lu</option>
-    <option>Bruna</option>
-    <option>Renan</option>
-    <option>Raimundo</option>
-    <option>Cleide</option>
-    <option>Ricardo</option>
-    <option>Larissa</option>
-    <option>Gabriel</option>
-    <option>Valcir</option>
-    <option>Tailson</option>
-    <option>Dheure</option>
-    <option>Dorilson</option>
-    <option>Joane</option>
-    <option>Neval</option>
-    <option>Agnaldo</option>
-    <option>Jenison</option>
-    <option>Vania</option>
-    <option>Adriana</option>
-    <option>Helena</option>
-    <option>Ivaneide</option>
-    <option>Eunice</option>
-    <option>Flayane</option>
-    <option>Quiteria</option>
-    <option>Luziânia</option>
-    <option>Rosemeire</option>
-    <option>Wilma</option>
-    <option>Islane</option>
-    <option>Marcelo</option>
-    <option>Juciara</option>
-    <option>Aline Santos</option>
-    <option>Aline Rodrigues</option>
-    <option>Geane</option>
-  </select>
+    <label>Solicitante</label>
+    <select id="solicitante">
+      <option value="">Selecione</option>
+      <option>ADM</option><option>Ruan</option><option>Renata</option>
+      <option>Lu</option><option>Bruna</option><option>Renan</option>
+      <option>Raimundo</option><option>Cleide</option><option>Ricardo</option>
+      <option>Larissa</option><option>Gabriel</option><option>Valcir</option>
+      <option>Tailson</option><option>Dheure</option><option>Dorilson</option>
+      <option>Joane</option><option>Neval</option><option>Agnaldo</option>
+      <option>Jenison</option><option>Vania</option><option>Adriana</option>
+      <option>Helena</option><option>Ivaneide</option><option>Eunice</option>
+      <option>Flayane</option><option>Quiteria</option><option>Luziânia</option>
+      <option>Rosemeire</option><option>Wilma</option><option>Islane</option>
+      <option>Marcelo</option><option>Juciara</option>
+      <option>Aline Santos</option><option>Aline Rodrigues</option>
+      <option>Geane</option>
+    </select>
 
-  <label>Setor:</label>
-  <select id="setor">
-    <option value="">Selecione</option>
-    <option>Cozinha</option>
-    <option>Limpeza</option>
-    <option>Sushi</option>
-    <option>Garçons</option>
-    <option>Gerência</option>
-    <option>Pizzaria</option>
-    <option>Bar</option>
-    <option>Caixa</option>
-  </select>
+    <label>Setor</label>
+    <select id="setor">
+      <option value="">Selecione</option>
+      <option>Cozinha</option><option>Limpeza</option><option>Sushi</option>
+      <option>Garçons</option><option>Gerência</option><option>Pizzaria</option>
+      <option>Bar</option><option>Caixa</option><option>Churrasqueira</option>
+    </select>
 
-  <label>Produto:</label>
-  <input type="text" id="item" placeholder="Digite o produto">
+    <label>Produto</label>
+    <input type="text" id="item" placeholder="Digite o produto">
 
-  <label>Quantidade:</label>
-  <input type="number" id="quantidade" min="1">
+    <label>Quantidade</label>
+    <input type="number" id="quantidade" min="1">
 
-  <label>Unidade de Medida:</label>
-  <div class="unidades">
-    <button type="button" onclick="selecionarUnidade(this,'UN.')">UN.</button>
-    <button type="button" onclick="selecionarUnidade(this,'PC.')">PC.</button>
-    <button type="button" onclick="selecionarUnidade(this,'L.')">L.</button>
-    <button type="button" onclick="selecionarUnidade(this,'KG.')">KG.</button>
-    <button type="button" onclick="selecionarUnidade(this,'CX.')">CX.</button>
+    <label>Unidade</label>
+    <select id="unidade">
+      <option value="">Selecione</option>
+      <option>UN.</option><option>PC.</option><option>L.</option>
+      <option>KG.</option><option>CX.</option>
+    </select>
+
+    <label>Observações</label>
+    <textarea id="observacoes" placeholder="Observações gerais"></textarea>
+
+    <button class="btn-blue" onclick="enviarItem()">ENVIAR ITEM</button>
+    <button class="btn-red" onclick="carregarHistorico()">ATUALIZAR HISTÓRICO</button>
+
+    <div class="historico">
+      <h3>Histórico</h3>
+      <div id="historico"></div>
+    </div>
   </div>
 
-  <label>Observações:</label>
-  <textarea id="observacoes" placeholder="Observações gerais"></textarea>
-
-  <div id="spinner"></div>
-  <button id="btn-enviar" class="btn-blue" onclick="enviarItem()">ENVIAR ITEM</button>
-  <button class="btn-red" onclick="limparTabela()">LIMPAR HISTÓRICO</button>
-  <p id="msg"></p>
-
-  <h3>Itens enviados nesta sessão:</h3>
-  <div id="historico"></div>
-</div>
-
 <script>
-  const solicitanteSenhas = {
-    "ADM": "00", "Ruan": "Ruan10", "Renata": "Renata12","Flayane": "Flayane5","Eunice": "1097","Helena": "5556",
-    "Lu": "Lu26", "Bruna": "Bruna48", "Renan": "Renan78","Raimundo": "Raimundo47",
-    "Cleide": "Cleide98","Ricardo": "Ricardo41","Larissa": "Larissa56","Valcir": "Valcir24",
-    "Tailson": "Tailson97","Dheure": "Dheure73","Neval": "Neval34","Agnaldo": "Agnaldo67",
-    "Jenison": "Genison35","Dorilson": "Dorilson8","Joane": "joane6","Vania": "Vanial86",
-    "Adriana": "Adriana49","Ivaneide": "Ivaneide46","Geane": "Geane83","Luziânia": "Luziânia8",
-    "Rosemeire": "Rosemeire30","Wilma": "Wilma87","Gabriel": "Gabriel5","Islane": "Islane78",
-    "Marcelo": "Marcelo75","Juciara": "Juciara35","Aline Santos": "Aline32","Aline Rodrigues": "Aline59",
-    "Quiteria": "Quiteria43"
-  };
-
-  let unidadeSelecionada = '';
-  let enviados = JSON.parse(localStorage.getItem('enviados')) || [];
-  let senhaAutenticada = '';
-
-  function selecionarUnidade(btn, valor) {
-    unidadeSelecionada = valor;
-    document.querySelectorAll('.unidades button').forEach(b => b.classList.remove('ativo'));
-    btn.classList.add('ativo');
-  }
-
-  document.getElementById('solicitante').addEventListener('change', () => {
-    const s = document.getElementById('solicitante').value;
-    if (s) {
-      const senha = prompt(`Digite a senha para ${s}:`);
-      if (senha === solicitanteSenhas[s]) {
-        senhaAutenticada = senha;
-        document.getElementById('msg').innerText = "✅ Autenticado!";
-      } else {
-        senhaAutenticada = '';
-        document.getElementById('msg').innerText = "❌ Senha incorreta!";
-        document.getElementById('solicitante').value = '';
-      }
-    }
-  });
+  const URL_GAS = "https://script.google.com/macros/s/AKfycbyXFEAq56G7oQdeCzGw_SdOnQ7XkRPMzBoS1V09Pkk_wI916FGO9nn4e9FfeNmv8KV9KA/exec";
 
   function enviarItem() {
-    const solicitante = document.getElementById('solicitante').value.trim();
-    const setor = document.getElementById('setor').value.trim();
-    const item = document.getElementById('item').value.trim();
-    const quantidade = document.getElementById('quantidade').value.trim();
-    const observacoes = document.getElementById('observacoes').value.trim();
-    const horaEnvio = new Date().toLocaleTimeString();
+    const dados = {
+      acao: "cadastrar",
+      solicitante: document.getElementById("solicitante").value,
+      setor: document.getElementById("setor").value,
+      item: document.getElementById("item").value,
+      quantidade: document.getElementById("quantidade").value,
+      unidade: document.getElementById("unidade").value,
+      observacoes: document.getElementById("observacoes").value
+    };
 
-    if (!solicitante || !setor || !item || !quantidade || !unidadeSelecionada || !senhaAutenticada) {
-      document.getElementById('msg').innerText = "⚠️ Preencha todos os campos!";
+    if (!dados.solicitante || !dados.setor || !dados.item || !dados.quantidade || !dados.unidade) {
+      alert("⚠️ Preencha todos os campos obrigatórios!");
       return;
     }
 
-    document.getElementById('spinner').style.display = 'block';
-    document.getElementById('btn-enviar').disabled = true;
-
-    enviados.push({ item, unidade: unidadeSelecionada, quantidade, setor, hora: horaEnvio, status: "Processando" });
-    save();
-    atualizarTabela();
-
-    const data = new URLSearchParams();
-    data.append('Item', item);
-    data.append('Unidade', unidadeSelecionada);
-    data.append('Quantidade', quantidade);
-    data.append('Setor', setor);
-    data.append('Solicitante', solicitante);
-    data.append('Observacoes', observacoes);
-
-    fetch('https://script.google.com/macros/s/AKfycbz5LPZEhzSVCWBJ4FrSvYJkmigTMG8XznHsa1o0JQCNz7136W-KFmg8IUlgPyT3D3b4Fw/exec', {
-      method: 'POST',
-      body: data
+    fetch(URL_GAS, {
+      method: "POST",
+      body: JSON.stringify(dados)
     })
-    .then(() => {
-      enviados[enviados.length - 1].status = "Enviado";
-      save();
-      atualizarTabela();
-      alert("✅ Item enviado com sucesso!");
+    .then(r => r.text())
+    .then(msg => {
+      alert(msg);
       limparCampos();
-    })
-    .catch(() => {
-      document.getElementById('msg').innerText = "⚠️ Erro ao enviar!";
-    })
-    .finally(() => {
-      document.getElementById('spinner').style.display = 'none';
-      document.getElementById('btn-enviar').disabled = false;
+      carregarHistorico();
     });
   }
 
   function limparCampos() {
-    document.getElementById('item').value = '';
-    document.getElementById('quantidade').value = '';
-    document.getElementById('observacoes').value = '';
-    unidadeSelecionada = '';
-    document.querySelectorAll('.unidades button').forEach(b => b.classList.remove('ativo'));
+    document.getElementById("item").value = "";
+    document.getElementById("quantidade").value = "";
+    document.getElementById("unidade").value = "";
+    document.getElementById("observacoes").value = "";
   }
 
-  function atualizarTabela() {
-    const historico = document.getElementById('historico');
-    historico.innerHTML = '';
-    enviados.forEach(i => {
-      const card = document.createElement('div');
-      card.className = 'card-item';
-      card.innerHTML = `
-        <div><strong>Produto:</strong> ${i.item}</div>
-        <div><strong>Qtd:</strong> ${i.quantidade} ${i.unidade}</div>
-        <div><strong>Setor:</strong> ${i.setor}</div>
-        <div><strong>Hora:</strong> ${i.hora}</div>
-        <div class="status ${i.status.toLowerCase()}"><strong>Status:</strong> ${i.status}</div>
-      `;
-      historico.appendChild(card);
-    });
-  }
-
-  function save() {
-    localStorage.setItem('enviados', JSON.stringify(enviados));
-  }
-
-  function limparTabela() {
-    enviados = [];
-    save();
-    atualizarTabela();
-  }
-
-  function atualizarStatusPlanilha() {
-    fetch('https://script.google.com/macros/s/AKfycbxk5CVDcrdUj546keN0l7p5EKNvSATgQaOuW5D4PdxmN2CESNFrLABOWCMrattDYl1qjQ/exec')
+  function carregarHistorico() {
+    fetch(`${URL_GAS}?acao=ler`)
       .then(r => r.json())
-      .then(data => {
-        enviados.forEach(localItem => {
-          const encontrado = data.find(r => r.Item === localItem.item);
-          if (encontrado) localItem.status = encontrado.Status || localItem.status;
+      .then(lista => {
+        const div = document.getElementById("historico");
+        div.innerHTML = "";
+        lista.reverse().forEach(l => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <div><b>Produto:</b> ${l.item} (${l.qtd} ${l.unidade})</div>
+            <div><b>Setor:</b> ${l.setor}</div>
+            <div><b>Solicitante:</b> ${l.solicitante}</div>
+            <div><b>Obs:</b> ${l.observacoes || "-"}</div>
+            <div><b>Data:</b> ${l.dataHora}</div>
+            <div class="status ${l.status}">Status: ${l.status}</div>
+          `;
+          div.appendChild(card);
         });
-        save();
-        atualizarTabela();
       });
   }
 
-  setInterval(atualizarStatusPlanilha, 10000);
-  atualizarTabela();
+  carregarHistorico();
 </script>
 </body>
 </html>
